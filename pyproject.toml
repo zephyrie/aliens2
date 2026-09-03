@@ -1,0 +1,10 @@
+[project]
+name = "aliens2-guide"
+version = "0.1.0"
+description = "Aliens: Fireteam Elite 2 build-guide corpus builder"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+dependencies = [
+    "yt-dlp>=2026.8.19",
+]

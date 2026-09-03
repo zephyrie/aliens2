@@ -1,0 +1,18 @@
+# Scraped source text — pulled locally for analysis, not redistributed.
+# Regenerate with pipeline/fetch_captions.sh + parse_captions.py + make_packs.py.
+# The published record of what was used lives in SOURCES.md / data/videos.json.
+captions/
+data/transcripts.json
+data/urls.txt
+reading/
+
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# npx symlink into the shared playwright cache
+tools/node_modules
+node_modules/
+
+.DS_Store

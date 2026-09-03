@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aliens: Fireteam Elite 2 — Build Compendium</title>
+<style>
+:root{
+  --bg:#0b0d0c; --bg2:#111614; --bg3:#161d1a; --line:#26312c;
+  --amber:#f0b429; --amber-dim:#8a6a1c; --green:#8fd14f; --green-dim:#4a6b2a;
+  --blue:#4fa3d1; --red:#d1544f; --txt:#d6ded9; --txt-dim:#8b968f; --white:#f2f6f4;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font:15px/1.6 var(--sans);
+  background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0 1px,transparent 1px 3px);}
+a{color:var(--amber);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{font-family:var(--mono);font-weight:600;letter-spacing:.02em;color:var(--white);margin:0}
+
+/* ---------- shell ---------- */
+.wrap{display:grid;grid-template-columns:246px 1fr;min-height:100vh}
+.wrap>*{min-width:0}
+nav{background:var(--bg2);border-right:1px solid var(--line);padding:0 0 40px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.brand{padding:18px 16px 14px;border-bottom:1px solid var(--line)}
+.brand h1{font-size:14px;color:var(--amber);letter-spacing:.08em}
+.brand .sub{font:11px var(--mono);color:var(--txt-dim);margin-top:5px;line-height:1.5}
+.navsec{padding:14px 12px 4px;font:10px var(--mono);letter-spacing:.14em;color:var(--txt-dim)}
+nav a.item{display:flex;align-items:center;gap:9px;padding:8px 14px;color:var(--txt);font-size:14px;border-left:2px solid transparent}
+nav a.item:hover{background:var(--bg3);text-decoration:none}
+nav a.item.on{background:var(--bg3);border-left-color:var(--amber);color:var(--white)}
+nav a.item .t{margin-left:auto;font:10px var(--mono);padding:1px 5px;border-radius:2px}
+nav a.sub{display:flex;align-items:center;gap:8px;padding:5px 14px 5px 26px;color:var(--txt-dim);
+  font-size:13px;border-left:2px solid transparent;line-height:1.35}
+nav a.sub:hover{background:var(--bg3);color:var(--txt);text-decoration:none}
+nav a.sub.on{color:var(--white);border-left-color:var(--green-dim);background:var(--bg3)}
+nav a.sub::before{content:'';flex:0 0 auto;width:4px;height:4px;border-radius:50%;
+  background:var(--line);transition:background .12s}
+nav a.sub.on::before,nav a.sub:hover::before{background:var(--amber)}
+nav a.sub .sn{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+nav a.sub .t{flex:0 0 auto;font:9px var(--mono);padding:1px 4px;border-radius:2px}
+main{padding:26px 34px 90px;max-width:1180px;min-width:0;overflow-x:hidden}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}nav{position:static;height:auto}main{padding:18px 14px 60px}}
+
+/* ---------- tier chips ---------- */
+.tier{font:11px var(--mono);font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.05em}
+.tier.S{background:#4a2323;color:#ff9b96;border:1px solid #7a3c3c}
+.tier.A{background:#4a3d1c;color:var(--amber);border:1px solid #7a642c}
+.tier.B{background:#26312c;color:var(--txt-dim);border:1px solid var(--line)}
+
+/* ---------- generic blocks ---------- */
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:6px;margin:16px 0}
+.card>.hd{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+.card>.bd{padding:16px 18px}
+.lede{color:var(--txt);font-size:15.5px;line-height:1.72}
+.dim{color:var(--txt-dim)}
+.mono{font-family:var(--mono)}
+.pill{display:inline-block;font:11px var(--mono);background:var(--bg3);border:1px solid var(--line);
+  color:var(--txt-dim);padding:2px 8px;border-radius:11px;margin:0 5px 5px 0}
+.note{border-left:3px solid var(--amber-dim);background:rgba(240,180,41,.05);padding:11px 14px;
+  margin:14px 0;font-size:14px;border-radius:0 4px 4px 0}
+.note.warn{border-left-color:var(--red);background:rgba(209,84,79,.06)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+.scroll>table{min-width:520px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:10px var(--mono);letter-spacing:.1em;color:var(--txt-dim);text-transform:uppercase}
+.scroll{overflow-x:auto;max-width:100%}
+
+/* ---------- perk grid ---------- */
+.perkwrap{display:grid;grid-template-columns:1fr 300px;gap:18px}
+.perkwrap>*{min-width:0}
+@media(max-width:1000px){.perkwrap{grid-template-columns:1fr}}
+.board{background:#0a0f0c;border:1px solid var(--line);border-radius:5px;padding:14px;min-width:0}
+.zone{margin-bottom:13px}
+.zone-hd{font:10px var(--mono);letter-spacing:.13em;color:var(--green);margin-bottom:7px;
+  padding-bottom:4px;border-bottom:1px dashed var(--green-dim);text-transform:uppercase}
+.zone-hd .zt{color:var(--txt-dim);float:right;letter-spacing:.05em}
+.tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
+@media(max-width:640px){.tiles{grid-template-columns:repeat(3,1fr)}}
+.tile{background:linear-gradient(180deg,#1d2a1d,#162016);border:1px solid var(--green-dim);
+  border-radius:4px;padding:7px 8px;min-height:52px;display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden}
+.tile.s2{grid-column:span 2}.tile.s3{grid-column:span 3}.tile.s4{grid-column:span 4}.tile.s6{grid-column:span 6}
+.tile .nm{font:11.5px/1.32 var(--mono);color:var(--green);font-weight:600;word-break:break-word}
+.tile .ef{font:10px/1.35 var(--sans);color:var(--txt-dim);margin-top:3px}
+.tile .sz{position:absolute;top:3px;right:5px;font:9px var(--mono);color:var(--green-dim)}
+.tile.repl{background:linear-gradient(180deg,#2a2416,#201c12);border-color:var(--amber-dim)}
+.tile.repl .nm{color:var(--amber)}
+.tile.repl .sz{color:var(--amber-dim)}
+.tile.imp{background:linear-gradient(180deg,#16232a,#121b20);border-color:#2c5364}
+.tile.imp .nm{color:var(--blue)}
+.tile.skip{background:#12100f;border-color:#3a2a28;border-style:dashed}
+.tile.skip .nm{color:#8a6560;text-decoration:line-through}
+
+/* side list */
+.sidelist{background:var(--bg3);border:1px solid var(--line);border-radius:5px;padding:0;
+  align-self:start;position:sticky;top:14px;max-height:calc(100vh - 40px);display:flex;flex-direction:column}
+.sidelist .sh{padding:10px 13px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+.sidelist .sh b{font:11px var(--mono);letter-spacing:.09em;color:var(--white)}
+.sidelist .sb{padding:9px 13px 13px;overflow-y:auto}
+.sidelist .grp{font:10px var(--mono);letter-spacing:.1em;color:var(--amber);margin:11px 0 5px;text-transform:uppercase}
+.sidelist .grp:first-child{margin-top:0}
+.sidelist ol{margin:0;padding-left:19px}
+.sidelist li{font:12.5px/1.55 var(--mono);color:var(--txt);margin-bottom:3px}
+.sidelist li span{color:var(--txt-dim);font-size:11px}
+.btn{font:10px var(--mono);background:var(--bg2);border:1px solid var(--line);color:var(--txt-dim);
+  padding:4px 8px;border-radius:3px;cursor:pointer;letter-spacing:.05em}
+.btn:hover{border-color:var(--amber-dim);color:var(--amber)}
+.slotbar{height:5px;background:var(--bg2);border-radius:3px;overflow:hidden;margin-top:7px}
+.slotbar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--amber))}
+
+/* ---------- build tabs ---------- */
+.tabhd{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:30px 0 10px}
+.tabhd h3{font-size:18px}
+.tabhd .cnt{font:11px var(--mono);color:var(--txt-dim)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:3px;scrollbar-width:thin}
+.tabs::-webkit-scrollbar{height:5px}
+.tabs::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.tab{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--bg3);
+  border:1px solid var(--line);border-radius:5px;cursor:pointer;font:12.5px var(--mono);
+  color:var(--txt-dim);white-space:nowrap;text-align:left;line-height:1.35}
+.tab:hover{color:var(--txt);border-color:var(--amber-dim)}
+.tab.on{background:var(--bg2);color:var(--white);border-color:var(--amber-dim);
+  box-shadow:inset 0 2px 0 var(--amber)}
+.tab .tn{display:block;font-weight:600}
+.tab .ta{display:block;font-size:10px;color:var(--txt-dim);margin-top:2px;letter-spacing:.02em}
+.tab.on .ta{color:var(--txt-dim)}
+
+/* ---------- weapons ---------- */
+.wpn{border:1px solid var(--line);border-radius:5px;margin-bottom:12px;background:var(--bg3)}
+.wpn .wh{padding:10px 14px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.wpn .wh .slot{font:10px var(--mono);letter-spacing:.1em;color:var(--amber);text-transform:uppercase}
+.wpn .wh .nm{font-family:var(--mono);font-size:15px;color:var(--white);font-weight:600}
+.wpn .wb{padding:12px 14px}
+.wpn .why{font-size:13.5px;color:var(--txt-dim);margin-bottom:10px;line-height:1.62}
+
+/* ---------- media ---------- */
+.embeds{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.emb{border:1px solid var(--line);border-radius:5px;overflow:hidden;background:#000}
+.emb .fr{position:relative;padding-top:56.25%}
+.emb iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.emb .cap{padding:7px 10px;font:11px var(--mono);color:var(--txt-dim);background:var(--bg2);line-height:1.45}
+.emb .cap b{color:var(--txt);display:block;font-weight:600}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.gal figure{margin:0;border:1px solid var(--line);border-radius:5px;overflow:hidden;background:var(--bg3);cursor:zoom-in}
+.gal img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.gal figcaption{padding:6px 9px;font:10.5px var(--mono);color:var(--txt-dim);line-height:1.4}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.94);display:none;align-items:center;justify-content:center;z-index:99;padding:22px}
+#lb.on{display:flex}
+#lb img{max-width:100%;max-height:100%;object-fit:contain}
+
+details{border:1px solid var(--line);border-radius:5px;margin:9px 0;background:var(--bg3)}
+summary{padding:10px 14px;cursor:pointer;font-family:var(--mono);font-size:13px;color:var(--white)}
+details>div{padding:0 14px 13px}
+ul.tight{margin:6px 0;padding-left:20px}
+ul.tight li{margin-bottom:5px}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.cols2{grid-template-columns:1fr}}
+.sw{color:var(--green)}.wk{color:#e08b87}
+kbd{font:11px var(--mono);background:var(--bg3);border:1px solid var(--line);padding:1px 5px;border-radius:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav id="nav"></nav>
+  <main id="main"></main>
+</div>
+<div id="lb"></div>
+
+<script src="data-core.js"></script>
+<script src="data-classes.js"></script>
+<script src="data-images.js"></script>
+<script src="data-weapons.js"></script>
+<script>
+const E=(t,a={},...k)=>{const n=document.createElement(t);
+  for(const[p,v]of Object.entries(a)){if(p==='class')n.className=v;else if(p==='html')n.innerHTML=v;else n.setAttribute(p,v);}
+  k.flat().forEach(c=>c!=null&&n.append(c.nodeType?c:document.createTextNode(c)));return n;};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const mmss=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+const G=window.GUIDE;
+
+/* ---------------- perk grid ----------------
+   The in-game board is one shared skeleton across all classes: a left ability
+   zone, a right ability zone and a bottom passive zone, with 42 slots total.
+   Perks are variable-size tiles, so this renders each build's allocation
+   grouped by tree with tile sizes where the source documented them.        */
+const SIZE_HINTS=[
+  [/rapid deployment/i,3],[/jackpot/i,2],[/force multiplier 3/i,3],
+  [/stack 'em up/i,2],[/ambient cooling/i,2],[/shatter protocol/i,2],
+  [/enhanced reach/i,3],[/parasocial relationship/i,3],[/big game/i,2],
+  [/energy reserves/i,2],[/passive charging/i,2],[/cluster storm/i,2],
+  [/precision configuration/i,2],[/auto rocket/i,2],[/overload/i,2],
+  [/rumble turret/i,2],[/cryo pulse|arc bolt|vlad bolt|particle beam/i,2],
+];
+const sizeOf=n=>{for(const[re,s]of SIZE_HINTS)if(re.test(n))return s;return 1;};
+const kindOf=(tree,n)=>{
+  if(/^skipped/i.test(tree))return'skip';
+  if(/^(imported|borrowed)/i.test(tree))return'imp';
+  if(/replacer|replaces/i.test(n))return'repl';
+  return'';
+};
+
+function perkGrid(b){
+  const board=E('div',{class:'board'});
+  let total=0;
+  b.perks.forEach(tr=>{
+    const z=E('div',{class:'zone'});
+    let zt=0;
+    const tiles=E('div',{class:'tiles'});
+    tr.items.forEach(it=>{
+      const [nm,...rest]=String(it).split(' — ');
+      const s=sizeOf(nm), k=kindOf(tr.tree,it);
+      if(k!=='skip'){zt+=s;total+=s;}
+      tiles.append(E('div',{class:`tile s${s} ${k}`},
+        E('span',{class:'sz'},k==='skip'?'—':`${s}`),
+        E('div',{class:'nm'},nm),
+        rest.length?E('div',{class:'ef'},rest.join(' — ')):null));
+    });
+    z.append(E('div',{class:'zone-hd',html:`${esc(tr.tree)}<span class="zt">${zt} slot${zt===1?'':'s'}</span>`}),tiles);
+    board.append(z);
+  });
+  board.append(E('div',{class:'dim mono',style:'font-size:10.5px;margin-top:10px;line-height:1.55'},
+    `Tile size = slot cost. Sizes are taken from the source video where it stated one, otherwise shown as 1. `+
+    `Zone grouping matches the in-game trees; exact board coordinates are not reproduced.`));
+
+  // side panel: plain scannable list, no hover needed
+  const sb=E('div',{class:'sb'});
+  b.perks.forEach(tr=>{
+    sb.append(E('div',{class:'grp'},tr.tree));
+    const ol=E('ol');
+    tr.items.forEach(it=>{
+      const [nm,...rest]=String(it).split(' — ');
+      ol.append(E('li',{},nm,rest.length?E('span',{},' — '+rest.join(' — ')):null));
+    });
+    sb.append(ol);
+  });
+  const plain=b.perks.map(tr=>tr.tree+':\n'+tr.items.map(i=>'  - '+i).join('\n')).join('\n\n');
+  const copy=E('button',{class:'btn'},'copy list');
+  copy.onclick=()=>{navigator.clipboard.writeText(plain).then(()=>{copy.textContent='copied';setTimeout(()=>copy.textContent='copy list',1400)})};
+  const pct=Math.min(100,Math.round(total/42*100));
+  const side=E('div',{class:'sidelist'},
+    E('div',{class:'sh'},E('b',{},'PERK CHECKLIST'),E('span',{class:'dim mono',style:'font-size:10px;margin-left:auto'},`~${total}/42`),copy),
+    E('div',{style:'padding:0 13px'},E('div',{class:'slotbar'},E('i',{style:`width:${pct}%`}))),
+    sb);
+  return E('div',{class:'perkwrap'},board,side);
+}
+
+/* ---------------- build ---------------- */
+function buildView(b,cls){
+  const c=E('div',{class:'card'});
+  c.append(E('div',{class:'hd'},
+    E('h3',{style:'font-size:17px'},b.name),
+    E('span',{class:`tier ${b.tier}`},'TIER '+b.tier),
+    E('span',{class:'pill'},b.archetype),
+    E('span',{class:'pill'},'confidence: '+b.confidence)));
+  const bd=E('div',{class:'bd'});
+  bd.append(E('div',{class:'note'},E('b',{},'Verdict. '),b.verdict));
+  bd.append(E('p',{class:'lede'},b.summary));
+  if(b.difficulty)bd.append(E('p',{class:'dim mono',style:'font-size:12px'},'Tested at: '+b.difficulty));
+
+  bd.append(E('h4',{style:'margin:20px 0 9px;font-size:13px;color:var(--amber)'},'PERK BOARD'));
+  bd.append(perkGrid(b));
+
+  bd.append(E('h4',{style:'margin:24px 0 9px;font-size:13px;color:var(--amber)'},'WEAPONS & ATTACHMENTS'));
+  b.weapons.forEach(w=>{
+    const box=E('div',{class:'wpn'});
+    box.append(E('div',{class:'wh'},E('span',{class:'slot'},w.slot),E('span',{class:'nm'},w.name)));
+    const wb=E('div',{class:'wb'});
+    if(w.why)wb.append(E('div',{class:'why'},w.why));
+    if(w.attachments&&w.attachments.length){
+      const t=E('table');
+      t.append(E('tr',{},E('th',{},'Slot'),E('th',{},'Attachment')));
+      w.attachments.forEach(([s,n])=>t.append(E('tr',{},E('td',{class:'dim mono',style:'font-size:12px;white-space:nowrap'},s),E('td',{},n))));
+      wb.append(E('div',{class:'scroll'},t));
+    }
+    const ex=[];
+    if(w.trait&&w.trait!=='—'&&w.trait!=='')ex.push(['Trait',w.trait]);
+    if(w.augment&&w.augment!=='—'&&w.augment!=='')ex.push(['Augment',w.augment]);
+    if(ex.length){
+      const t2=E('table',{style:'margin-top:8px'});
+      ex.forEach(([k,v])=>t2.append(E('tr',{},E('td',{class:'dim mono',style:'font-size:12px;width:80px'},k),E('td',{},v))));
+      wb.append(t2);
+    }
+    box.append(wb);c.append(box);
+    bd.append(box);
+  });
+
+  if(b.items||b.cards){
+    const d=E('div',{class:'cols2',style:'margin-top:16px'});
+    if(b.items)d.append(E('div',{},E('h4',{style:'font-size:12px;color:var(--amber);margin-bottom:6px'},'ITEMS'),
+      E('ul',{class:'tight'},b.items.map(i=>E('li',{},i)))));
+    if(b.cards)d.append(E('div',{},E('h4',{style:'font-size:12px;color:var(--amber);margin-bottom:6px'},'CHALLENGE CARDS'),
+      E('ul',{class:'tight'},b.cards.map(i=>E('li',{},i)))));
+    bd.append(d);
+  }
+
+  bd.append(E('h4',{style:'margin:22px 0 8px;font-size:13px;color:var(--amber)'},'HOW TO PLAY IT'));
+  bd.append(E('ul',{class:'tight'},b.playstyle.map(p=>E('li',{},p))));
+
+  const sw=E('div',{class:'cols2',style:'margin-top:16px'});
+  sw.append(E('div',{},E('h4',{style:'font-size:12px;margin-bottom:6px'},E('span',{class:'sw'},'STRENGTHS')),
+    E('ul',{class:'tight'},b.strengths.map(s=>E('li',{},s)))));
+  sw.append(E('div',{},E('h4',{style:'font-size:12px;margin-bottom:6px'},E('span',{class:'wk'},'WEAKNESSES')),
+    E('ul',{class:'tight'},b.weaknesses.map(s=>E('li',{},s)))));
+  bd.append(sw);
+
+  // in-game screenshots
+  const imgs=(G.images||{})[b.id]||[];
+  if(imgs.length){
+    bd.append(E('h4',{style:'margin:24px 0 8px;font-size:13px;color:var(--amber)'},'IN-GAME REFERENCE'));
+    const gal=E('div',{class:'gal'});
+    imgs.forEach(im=>{
+      const f=E('figure',{},E('img',{src:im.src,loading:'lazy',alt:im.caption}),
+        E('figcaption',{},`${im.caption} · ${mmss(im.t)}`));
+      f.onclick=()=>{const lb=document.getElementById('lb');lb.innerHTML='';lb.append(E('img',{src:im.src,alt:im.caption}));lb.classList.add('on')};
+      gal.append(f);
+    });
+    bd.append(gal);
+  }
+
+  // timestamped source embeds
+  bd.append(E('h4',{style:'margin:24px 0 8px;font-size:13px;color:var(--amber)'},'SOURCES — JUMP TO THE EXACT MOMENT'));
+  const em=E('div',{class:'embeds'});
+  b.sources.forEach(s=>{
+    const meta=G.sources[s.vid]||{};
+    s.marks.forEach(([t,label])=>{
+      em.append(E('div',{class:'emb'},
+        E('div',{class:'fr'},E('iframe',{loading:'lazy',allowfullscreen:'',
+          src:`https://www.youtube-nocookie.com/embed/${s.vid}?start=${t}&rel=0`})),
+        E('div',{class:'cap'},E('b',{},label),
+          `${meta.channel||''} · ${mmss(t)} · ${(meta.views||0).toLocaleString()} views`)));
+    });
+  });
+  bd.append(em);
+  c.append(bd);
+  // strip the duplicate weapon boxes appended to `c` during the loop
+  [...c.children].forEach(ch=>{if(ch.classList.contains('wpn'))ch.remove()});
+  return c;
+}
+
+/* ---------------- pages ---------------- */
+function classPage(cls,buildId){
+  const sel=cls.builds.find(b=>b.id===buildId)||cls.builds[0];
+  const m=[];
+  m.push(E('div',{style:'display:flex;align-items:center;gap:12px;flex-wrap:wrap'},
+    E('h2',{style:'font-size:27px'},cls.name),
+    E('span',{class:`tier ${cls.tier}`},'TIER '+cls.tier),
+    E('span',{class:'pill'},cls.role)));
+  m.push(E('p',{class:'mono dim',style:'margin:5px 0 0;font-size:13px'},cls.tagline));
+  m.push(E('p',{class:'lede',style:'margin-top:14px'},cls.summary));
+  m.push(E('div',{class:'note'},E('b',{},'Where it ranks. '),cls.tierNote));
+
+  const ab=E('div',{class:'card'},E('div',{class:'hd'},E('h3',{style:'font-size:14px'},'KIT ABILITIES')));
+  const abd=E('div',{class:'bd'});
+  cls.abilities.forEach(a=>{
+    abd.append(E('div',{style:'margin-bottom:14px'},
+      E('div',{class:'mono',style:'color:var(--white);font-size:14px;font-weight:600'},a.name),
+      E('div',{class:'dim',style:'font-size:14px;margin:3px 0 6px'},a.desc),
+      a.replacers?E('div',{},a.replacers.map(r=>E('div',{style:'margin:5px 0 0 14px;padding-left:11px;border-left:2px solid var(--amber-dim)'},
+        E('span',{class:'mono',style:'color:var(--amber);font-size:13px'},r.name),
+        E('div',{class:'dim',style:'font-size:13.5px'},r.desc)))):null));
+  });
+  ab.append(abd);m.push(ab);
+
+  const cp=E('div',{class:'card'},E('div',{class:'hd'},E('h3',{style:'font-size:14px'},'CORE & SIGNATURE PERKS')));
+  const t=E('table');
+  t.append(E('tr',{},E('th',{},'Perk'),E('th',{},'Effect')));
+  cls.corePerks.forEach(p=>t.append(E('tr',{},
+    E('td',{class:'mono',style:'color:var(--green);white-space:nowrap'},p.name),E('td',{},p.effect))));
+  cp.append(E('div',{class:'bd'},E('div',{class:'scroll'},t)));m.push(cp);
+
+  const bs=cls.builds;
+  m.push(E('div',{class:'tabhd'},E('h3',{},'Builds'),
+    E('span',{class:'cnt'},bs.length===1?'1 build':`${bs.length} builds · switch below`)));
+
+  // Rendered even for a single build, so every build has its own linkable tab.
+  const strip=E('div',{class:'tabs'});
+  bs.forEach(b=>{
+    const on=b.id===sel.id;
+    strip.append(E('a',{class:'tab'+(on?' on':''),href:`#/${cls.id}/${b.id}`},
+      E('span',{},E('span',{class:'tn'},b.name),E('span',{class:'ta'},b.archetype)),
+      E('span',{class:`tier ${b.tier}`},b.tier)));
+  });
+  m.push(strip);
+  m.push(buildView(sel,cls));
+  return m;
+}
+
+function overviewPage(){
+  const m=[];
+  m.push(E('h2',{style:'font-size:27px'},'Aliens: Fireteam Elite 2 — Build Compendium'));
+  m.push(E('p',{class:'lede',style:'margin-top:10px'},
+    `Every class, every build, with exact perks, weapons, attachments, traits and augments — compiled from `+
+    `community build guides published between 1 August and 1 September 2026. Each build links straight to the `+
+    `moment in the source video it came from.`));
+  m.push(E('div',{class:'note warn'},E('b',{},'Read this first. '),G.game.caveat));
+
+  const gf=E('div',{class:'card'},E('div',{class:'hd'},E('h3',{style:'font-size:14px'},'HOW THE GAME WORKS')));
+  const t=E('table');
+  G.game.facts.forEach(([k,v])=>t.append(E('tr',{},
+    E('td',{class:'mono',style:'color:var(--amber);white-space:nowrap;width:150px'},k),E('td',{},v))));
+  gf.append(E('div',{class:'bd'},E('div',{class:'scroll'},t)));m.push(gf);
+
+  m.push(E('h3',{style:'margin:26px 0 8px;font-size:17px'},'Class rankings at a glance'));
+  m.push(E('div',{class:'note'},'Rankings reflect the balance of opinion across the sources, weighted toward creators who had reached max level. Where sources disagreed, that is said explicitly on the class page.'));
+  const ct=E('table');
+  ct.append(E('tr',{},E('th',{},'Class'),E('th',{},'Tier'),E('th',{},'Role'),E('th',{},'Why'),E('th',{},'Builds')));
+  G.classes.forEach(c=>{
+    const a=E('a',{href:'#/'+c.id},c.name);
+    ct.append(E('tr',{},E('td',{class:'mono',style:'font-weight:600'},a),
+      E('td',{},E('span',{class:`tier ${c.tier}`},c.tier)),
+      E('td',{class:'dim',style:'font-size:13px'},c.role),
+      E('td',{style:'font-size:13.5px'},c.tierNote),
+      E('td',{class:'mono dim'},String(c.builds.length))));
+  });
+  m.push(E('div',{class:'card'},E('div',{class:'bd'},E('div',{class:'scroll'},ct))));
+
+  m.push(E('h3',{style:'margin:26px 0 8px;font-size:17px'},'Squad composition'));
+  m.push(E('div',{class:'card'},E('div',{class:'bd'},E('ul',{class:'tight'},[
+    E('li',{},E('b',{},'New to the series: '),'Duelist. It asks the least of you and rewards the thing you are already doing — shooting. Marauder is the other forgiving pick.'),
+    E('li',{},E('b',{},'Solo: '),'Machinist. A turret behaves predictably in a way AI squadmates do not, and its plasma weapons only consume ammo when you overheat them. Hunter is the alternative — Stasis Bolt buys time, and time is the scarcest resource solo.'),
+    E('li',{},E('b',{},'Full squad of four: '),'Put someone on Medic. With no revives at launch, a Medic who prevents a death is the whole difference. Add a Machinist for area control, a Marauder for heavy clearing, and a Hunter or Duelist for armored targets.'),
+    E('li',{},E('b',{},'Long term: '),'Level everything. The Specialist needs abilities unlocked on their home classes, so no early pick is wasted.'),
+  ]))));
+
+  m.push(E('h3',{style:'margin:26px 0 8px;font-size:17px'},'Sources'));
+  const st=E('table');
+  st.append(E('tr',{},E('th',{},'Channel'),E('th',{},'Video'),E('th',{},'Published'),E('th',{},'Views')));
+  Object.entries(G.sources).sort((a,b)=>b[1].views-a[1].views).forEach(([vid,s])=>{
+    st.append(E('tr',{},E('td',{class:'mono',style:'white-space:nowrap'},s.channel),
+      E('td',{},E('a',{href:`https://www.youtube.com/watch?v=${vid}`,target:'_blank',rel:'noopener'},s.title)),
+      E('td',{class:'mono dim',style:'white-space:nowrap'},s.date),
+      E('td',{class:'mono dim'},s.views.toLocaleString())));
+  });
+  m.push(E('div',{class:'card'},E('div',{class:'bd'},E('div',{class:'scroll'},st))));
+  return m;
+}
+
+function refPage(){
+  const m=[E('h2',{style:'font-size:25px'},'Augments, Traits & Attachments')];
+  m.push(E('p',{class:'lede'},'The universal systems that sit on top of every weapon, and the single most consequential gearing decision in the game — which augment you run.'));
+
+  const ac=E('div',{class:'card'},E('div',{class:'hd'},E('h3',{style:'font-size:14px'},'AUGMENTS')));
+  const at=E('table');
+  at.append(E('tr',{},E('th',{},'Augment'),E('th',{},'Type'),E('th',{},'Effect'),E('th',{},'Notes')));
+  G.augments.forEach(a=>at.append(E('tr',{},
+    E('td',{class:'mono',style:'white-space:nowrap;color:'+(a.verdict==='best'?'var(--amber)':'var(--green)')},a.name),
+    E('td',{class:'dim mono',style:'font-size:12px'},a.type),E('td',{},a.effect),
+    E('td',{class:'dim',style:'font-size:13px'},a.note||''))));
+  ac.append(E('div',{class:'bd'},E('div',{class:'scroll'},at)));m.push(ac);
+
+  const tc=E('div',{class:'card'},E('div',{class:'hd'},E('h3',{style:'font-size:14px'},'TRAITS')));
+  const tt=E('table');
+  tt.append(E('tr',{},E('th',{},'Trait'),E('th',{},'Unlocked from'),E('th',{},'Effect'),E('th',{},'Notes')));
+  G.traits.forEach(a=>tt.append(E('tr',{},E('td',{class:'mono',style:'white-space:nowrap;color:var(--green)'},a.name),
+    E('td',{class:'dim',style:'font-size:13px'},a.source),E('td',{},a.effect),E('td',{class:'dim',style:'font-size:13px'},a.note||''))));
+  tc.append(E('div',{class:'bd'},E('div',{class:'scroll'},tt)));m.push(tc);
+
+  const gc=E('div',{class:'card'},E('div',{class:'hd'},E('h3',{style:'font-size:14px'},'ATTACHMENT REFERENCE')));
+  const gt=E('table');
+  gt.append(E('tr',{},E('th',{},'Attachment'),E('th',{},'Slot'),E('th',{},'Effect')));
+  G.attachmentGlossary.forEach(([n,s,e])=>gt.append(E('tr',{},
+    E('td',{class:'mono',style:'white-space:nowrap'},n),E('td',{class:'dim mono',style:'font-size:12px'},s),E('td',{},e))));
+  gc.append(E('div',{class:'bd'},E('div',{class:'scroll'},gt)));m.push(gc);
+  return m;
+}
+
+function weaponsPage(){
+  const m=[E('h2',{style:'font-size:25px'},'Weapons')];
+  m.push(E('p',{class:'lede'},'Every weapon named across the build guides, with what it is for and who runs it.'));
+  const t=E('table');
+  t.append(E('tr',{},E('th',{},'Weapon'),E('th',{},'Class / slot'),E('th',{},'What it does'),E('th',{},'Used by')));
+  (G.weapons||[]).forEach(w=>t.append(E('tr',{},
+    E('td',{class:'mono',style:'white-space:nowrap;color:var(--white)'},w.name),
+    E('td',{class:'dim mono',style:'font-size:12px'},w.slot),
+    E('td',{},w.desc),E('td',{class:'dim',style:'font-size:13px'},(w.used||[]).join(', ')))));
+  m.push(E('div',{class:'card'},E('div',{class:'bd'},E('div',{class:'scroll'},t))));
+  return m;
+}
+
+/* ---------------- router ---------------- */
+function nav(){
+  const n=document.getElementById('nav');n.innerHTML='';
+  n.append(E('div',{class:'brand'},E('h1',{},'FIRETEAM ELITE 2'),
+    E('div',{class:'sub'},`Build compendium · compiled ${G.game.compiled}`)));
+  n.append(E('div',{class:'navsec'},'GENERAL'));
+  n.append(E('a',{class:'item',href:'#/'},'Overview & tiers'));
+  n.append(E('div',{class:'navsec'},'CLASSES'));
+  G.classes.forEach(c=>{
+    n.append(E('a',{class:'item',href:'#/'+c.id},c.name,
+      E('span',{class:`t tier ${c.tier}`},c.tier)));
+    // Every build gets its own link, including classes that only have one.
+    c.builds.forEach(b=>n.append(E('a',{class:'sub',href:`#/${c.id}/${b.id}`,title:b.name},
+      E('span',{class:'sn'},b.name),
+      E('span',{class:`t tier ${b.tier}`},b.tier))));
+  });
+  n.append(E('div',{class:'navsec'},'REFERENCE'));
+  n.append(E('a',{class:'item',href:'#/weapons'},'Weapons'));
+  n.append(E('a',{class:'item',href:'#/gear'},'Augments & attachments'));
+  mark();
+}
+function mark(){
+  const [seg,bid]=(location.hash||'#/').slice(2).split('/');
+  document.querySelectorAll('nav a.item').forEach(a=>
+    a.classList.toggle('on',a.getAttribute('href').slice(2)===seg));
+  // A bare class URL still renders its first build, so light that sub-item up too.
+  const cls=G.classes.find(c=>c.id===seg);
+  const active=cls?`${seg}/${(cls.builds.find(b=>b.id===bid)||cls.builds[0]).id}`:null;
+  document.querySelectorAll('nav a.sub').forEach(a=>
+    a.classList.toggle('on',a.getAttribute('href').slice(2)===active));
+}
+function route(){
+  const m=document.getElementById('main');m.innerHTML='';
+  const [id,bid]=(location.hash||'#/').slice(2).split('/');
+  let out;
+  if(!id)out=overviewPage();
+  else if(id==='gear')out=refPage();
+  else if(id==='weapons')out=weaponsPage();
+  else{
+    const c=G.classes.find(x=>x.id===id);
+    // Unknown or missing build segment falls back to the class's first build.
+    if(c&&(!bid||!c.builds.some(b=>b.id===bid)))
+      history.replaceState(null,'',`#/${c.id}/${c.builds[0].id}`);
+    out=c?classPage(c,bid):overviewPage();
+  }
+  out.forEach(x=>m.append(x));
+  mark();
+  const prev=route._seg, seg=(location.hash||'#/').slice(2).split('/')[0];
+  if(prev!==seg)window.scrollTo(0,0);            // new class -> top
+  else document.querySelector('.tabs')?.scrollIntoView({block:'nearest'});
+  route._seg=seg;
+}
+document.getElementById('lb').onclick=function(){this.classList.remove('on');this.innerHTML=''};
+addEventListener('hashchange',route);
+nav();route();
+</script>
+</body>
+</html>
